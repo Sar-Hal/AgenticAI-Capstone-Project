@@ -1,1 +1,0 @@
-Semantic search with SentenceTransformers uses models like 'all-MiniLM-L6-v2' to convert text into dense vector representations. These vectors can then be compared using cosine similarity to find relevant information.

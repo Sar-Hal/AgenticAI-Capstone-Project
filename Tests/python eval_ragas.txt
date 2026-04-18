@@ -1,0 +1,55 @@
+PS C:\Users\KIIT0001\Documents\GitHub\AgenticAI-Capstone-Project> python .\eval_ragas.py
+Graph compiled successfully
+Initializing vectorstore...
+C:\Users\KIIT0001\Documents\GitHub\AgenticAI-Capstone-Project\agent.py:22: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the :class:`~langchain-huggingface package and should be used instead. To use it run `pip install -U :class:`~langchain-huggingface` and import as `from :class:`~langchain_huggingface import HuggingFaceEmbeddings``.
+  embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+C:\Users\KIIT0001\AppData\Local\Programs\Python\Python311\Lib\site-packages\onnxscript\converter.py:820: FutureWarning: 'onnxscript.values.Op.param_schemas' is deprecated in version 0.1 and will be removed in the future. Please use '.op_signature' instead.
+  param_schemas = callee.param_schemas()
+C:\Users\KIIT0001\AppData\Local\Programs\Python\Python311\Lib\site-packages\onnxscript\converter.py:820: FutureWarning: 'onnxscript.values.OnnxFunction.param_schemas' is deprecated in version 0.1 and will be removed in the future. Please use '.op_signature' instead.
+  param_schemas = callee.param_schemas()
+2026-04-18 12:33:13.597275: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-04-18 12:33:14.553707: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\KIIT0001\AppData\Local\Programs\Python\Python311\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+C:\Users\KIIT0001\Documents\GitHub\AgenticAI-Capstone-Project\agent.py:26: LangChainDeprecationWarning: The class `Chroma` was deprecated in LangChain 0.2.9 and will be removed in 1.0. An updated version of the class exists in the :class:`~langchain-chroma package and should be used instead. To use it run `pip install -U :class:`~langchain-chroma` and import as `from :class:`~langchain_chroma import Chroma``.
+  vs = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
+
+============================================================
+RAGAS BASELINE EVALUATION (Manual LLM-based Faithfulness)
+============================================================
+
+--- Eval 1: What is Agentic AI?
+  Faithfulness: 1.00 | Relevancy: 1.00 | Precision: 1.00
+  Answer: Agentic AI is a subfield of artificial intelligence that focuses on building systems capable of autonomous goal-directed behavior. Unlike traditional ...
+
+--- Eval 2: What is the token limit of the all-MiniLM-L6-v2 model?
+  Faithfulness: 1.00 | Relevancy: 1.00 | Precision: 1.00
+  Answer: The all-MiniLM-L6-v2 model truncates input at 256 tokens. This means any text beyond this limit is silently lost from the embedding....
+
+--- Eval 3: What are the required fields in the CapstoneState TypedDict?
+  Faithfulness: 0.90 | Relevancy: 1.00 | Precision: 1.00
+  Answer: The CapstoneState TypedDict for this project includes: question, messages, route, retrieved, sources, tool_result, answer, faithfulness, and eval_retr...
+
+--- Eval 4: What is the faithfulness threshold in the eval_node?
+  Faithfulness: 1.00 | Relevancy: 1.00 | Precision: 1.00
+  Answer: The faithfulness threshold in the eval_node is 0.7. If the score falls below 0.7, the answer is regenerated (up to a maximum retry count)....
+
+--- Eval 5: What are the five categories of red-teaming tests?
+  Faithfulness: 1.00 | Relevancy: 1.00 | Precision: 1.00
+  Answer: Red-teaming in AI involves systematically testing agents to identify vulnerabilities, biases, or unexpected behaviors. The capstone project requires d...
+
+============================================================
+RAGAS BASELINE SCORES
+============================================================
+Question                                                  Faith   Relev    Prec
+--------------------------------------------------------------------------------
+What is Agentic AI?                                        1.00    1.00    1.00
+What is the token limit of the all-MiniLM-L6-v2 model      1.00    1.00    1.00
+What are the required fields in the CapstoneState Typ      0.90    1.00    1.00
+What is the faithfulness threshold in the eval_node?       1.00    1.00    1.00
+What are the five categories of red-teaming tests?         1.00    1.00    1.00
+--------------------------------------------------------------------------------
+AVERAGE                                                    0.98    1.00    1.00
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1776495926.868312   19564 init.cc:229] grpc_wait_for_shutdown_with_timeout() timed out.
+PS C:\Users\KIIT0001\Documents\GitHub\AgenticAI-Capstone-Project> 

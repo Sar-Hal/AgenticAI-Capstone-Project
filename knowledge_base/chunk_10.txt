@@ -1,1 +1,0 @@
-Memory persistence in LangGraph allows agents to remember previous turns in a conversation. By using a MemorySaver with a thread_id, the graph state can be stored and retrieved across multiple interactions.

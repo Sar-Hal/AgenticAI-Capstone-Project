@@ -1,1 +1,0 @@
-The Capstone Project for the Agentic AI course requires building a production-grade Course Assistant. It must include state-first design, an 8-node LangGraph architecture, ChromaDB for retrieval, and a Streamlit UI.

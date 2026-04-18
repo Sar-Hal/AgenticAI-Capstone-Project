@@ -1,4 +1,4 @@
-from typing import TypedDict, Annotated, List, Dict, Any
+from typing import TypedDict, Annotated, List
 from langgraph.graph.message import add_messages
 from langchain_core.messages import BaseMessage
 
@@ -12,3 +12,4 @@ class CapstoneState(TypedDict):
     answer: str
     faithfulness: float
     eval_retries: int
+    user_name: str

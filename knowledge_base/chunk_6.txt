@@ -1,1 +1,0 @@
-A StateGraph in LangGraph is a graph where the nodes are functions that update a shared state, and the edges define the control flow. The state is typically represented as a TypedDict.
