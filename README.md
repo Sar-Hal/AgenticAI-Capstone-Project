@@ -1,11 +1,5 @@
 # Agentic AI Course Assistant — Capstone Project
 
-**Course**: Agentic AI Hands-On Course 2026  
-**Instructor**: Dr. Kanthi Kiran Sirra | Sr. AI Engineer  
-**Deadline**: April 21, 2026 | 11:59 PM
-
----
-
 ## Overview
 
 A production-grade Course Assistant built using **LangGraph**, **ChromaDB**, and **Streamlit**. The agent answers questions about the Agentic AI course using a RAG pipeline, calculates project deadlines, maintains multi-turn conversation memory, and includes red-teaming safety defenses.
@@ -84,7 +78,7 @@ The agent requires a vector database to perform Retrieval-Augmented Generation (
    python generate_chunks.py
    ```
    *(This creates 12 domain documents in the `knowledge_base/` directory)*
-2. **(Optional) Expand Knowledge Base:**
+2. **(Optional) Expand Knowledge Base to simulate real cases:**
    To generate more comprehensive, detailed 300-500 word context chunks using Gemma 3:
    ```bash
    python expand_knowledge_base.py
@@ -95,12 +89,12 @@ To launch the interactive Course Assistant UI:
 ```bash
 streamlit run capstone_streamlit.py
 ```
-This will automatically initialize the `chroma_db` vectorstore and open the application in your default web browser at `http://localhost:8501`.
+This will automatically initialize the `chroma_db` vectorstore and open the application in your default web browser at `http://localhost:8501`. Running it for the first time will be a bit slow as it downloads all-MiniLM-L6-v2 for the first time. 
 
 ### 4. Running the Evaluation Suite
 To verify the core logic, memory, and red-teaming defenses:
 ```bash
-python day13_capstone.py
+python auto_test_capstone.py
 ```
 *(This script runs the full testing suite, including 10 domain questions, 2 red-teaming tests, a multi-turn memory test, and the RAGAS baseline evaluation).*
 
