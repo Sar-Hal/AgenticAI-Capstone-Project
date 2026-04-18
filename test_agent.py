@@ -80,7 +80,7 @@ print("=" * 60)
 
 memory_thread = "memory_test_thread"
 memory_questions = [
-    "My name is Sarhal. What is LangGraph?",
+    "My name is Sarthak. What is LangGraph?",
     "How does it handle memory?",
     "What was my name again and what did I ask about first?",
 ]

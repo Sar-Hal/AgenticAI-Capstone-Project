@@ -12,7 +12,7 @@ assert os.environ.get('GOOGLE_API_KEY'), 'GOOGLE_API_KEY not set!'
 print('API Key loaded successfully')
 
 # Generate knowledge base documents
-exec(open('generate_chunks.py', encoding='utf-8').read())
+# exec(open('generate_chunks.py', encoding='utf-8').read()) # Commented out to prevent overwriting expanded KB
 
 # Verify knowledge base
 kb_files = [f for f in os.listdir('knowledge_base') if f.endswith('.txt')]
@@ -32,8 +32,8 @@ for f in sorted(kb_files):
 
 # Build ChromaDB vectorstore
 try:
-    if os.path.exists('./chroma_db'):
-        shutil.rmtree('./chroma_db')
+    if os.path.exists('chroma_db'):
+        shutil.rmtree('chroma_db')
         print('Old chroma_db removed.')
 except PermissionError:
     print('chroma_db is locked. Using existing DB.')
@@ -62,12 +62,12 @@ for field, ftype in CapstoneState.__annotations__.items():
 from nodes import memory_node, router_node, retrieval_node, skip_node, tool_node, answer_node, eval_node, save_node
 
 # Test memory_node
-test_state = {'question': 'My name is Sarhal. What is RAG?', 'messages': [], 'user_name': ''}
+test_state = {'question': 'My name is Sarthak. What is RAG?', 'messages': [], 'user_name': ''}
 result = memory_node(test_state)
 print('memory_node test:')
 print('  user_name:', result.get('user_name'))
 print('  messages count:', len(result.get('messages', [])))
-print('  PASS:', result.get('user_name') == 'Sarhal')
+print('  PASS:', result.get('user_name') == 'Sarthak')
 
 # Test router_node
 time.sleep(3)

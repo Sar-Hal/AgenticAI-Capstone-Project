@@ -1,1 +1,20 @@
-Streamlit is an open-source Python library for building interactive web applications for machine learning and data science. In the capstone project, Streamlit serves as the deployment platform for the Course Assistant agent. Key patterns include using @st.cache_resource to prevent expensive resources (LLM clients, embedding models, ChromaDB collections, compiled graphs) from reloading on every user interaction. Session state (st.session_state) manages per-user data like conversation history and thread IDs. The chat interface uses st.chat_input for user input and st.chat_message for displaying conversation turns. A sidebar provides domain context, topic listings, and a New Conversation button that resets the session. Windows users must handle encoding with encoding='utf-8' when writing files.
+## Streamlit Deployment for Agentic AI Applications
+
+Streamlit is a Python library designed to rapidly create and deploy interactive web applications, particularly well-suited for machine learning and data science projects. Within this course, it functions as the user interface and deployment environment for the Course Assistant agent, enabling interaction with the agent’s capabilities through a web browser.
+
+**Core Components & Patterns:**
+
+* **`st.cache_resource`:** A critical optimization technique in Streamlit applications interacting with resource-intensive components.  LLM clients (e.g., OpenAI, Cohere), embedding models (e.g., Sentence Transformers), vector databases (e.g., ChromaDB collections), and even compiled machine learning graphs represent significant initialization costs. Without caching, each user interaction (e.g., a new chat message) would trigger a reload of these resources, leading to unacceptable latency.  `@st.cache_resource` decorates functions that initialize these resources, ensuring they are loaded only once during the application’s lifecycle.  Streamlit intelligently manages cache invalidation based on function code and dependencies.
+
+* **`st.session_state`:** Streamlit applications are inherently stateless – each interaction is treated as independent. `st.session_state` provides a mechanism to persist data *across* interactions for a specific user session. This is essential for maintaining conversational context.  Specifically, it stores the conversation history (list of messages), the unique thread ID for the current conversation (necessary for LLM context management), and potentially user-specific preferences. Accessing and modifying `st.session_state` is done through dictionary-like syntax (e.g., `st.session_state.conversation_history`).
+
+* **Chat Interface Elements:** The user interface leverages `st.chat_input` for capturing user queries. This component provides a dedicated chat-style input field.  Conversation turns are displayed using `st.chat_message`, allowing for clear differentiation between user messages and agent responses.  The `st.chat_message` component supports role assignment (user vs. assistant) for visual clarity.
+
+* **Sidebar Functionality:** A Streamlit sidebar is implemented to enhance usability. It houses:
+    * **Domain Context:** Displays relevant information about the course material, providing users with a quick reference.
+    * **Topic Listings:**  Allows users to select specific topics to focus the agent’s responses.
+    * **New Conversation Button:**  Resets the `st.session_state`, effectively starting a fresh conversation. This clears the conversation history and generates a new thread ID.
+
+**Platform Considerations:**
+
+* **Encoding (Windows):**  Windows users may encounter encoding errors when writing files (e.g., saving conversation logs).  Explicitly specifying `encoding='utf-8'` when opening files for writing (e.g., `with open('log.txt', 'w', encoding='utf-8') as f:`) mitigates these issues, ensuring proper handling of Unicode characters.

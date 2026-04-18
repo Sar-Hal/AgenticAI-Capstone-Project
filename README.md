@@ -55,13 +55,54 @@ User question → [memory_node] → [router_node] → [retrieval/tool/skip_node]
 └── Context/              # Course reference documents
 ```
 
-## Setup & Run
+## Setup & Run Instructions
 
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Create `.env` with your Google API key: `GOOGLE_API_KEY=your_key_here`
-4. Generate knowledge base: `python generate_chunks.py`
-5. Run the app: `streamlit run capstone_streamlit.py`
+Follow these steps to get the Agentic AI Course Assistant running locally.
+
+### 1. Environment Setup
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Sar-Hal/AgenticAI-Capstone-Project.git
+   cd AgenticAI-Capstone-Project
+   ```
+2. **Install dependencies:**
+   It is recommended to use a virtual environment.
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Configure API Keys:**
+   Create a `.env` file in the root directory and add your Google Gemini API key:
+   ```env
+   GOOGLE_API_KEY=your_api_key_here
+   ```
+
+### 2. Knowledge Base Generation
+The agent requires a vector database to perform Retrieval-Augmented Generation (RAG).
+
+1. **Generate basic chunks:**
+   ```bash
+   python generate_chunks.py
+   ```
+   *(This creates 12 domain documents in the `knowledge_base/` directory)*
+2. **(Optional) Expand Knowledge Base:**
+   To generate more comprehensive, detailed 300-500 word context chunks using Gemma 3:
+   ```bash
+   python expand_knowledge_base.py
+   ```
+
+### 3. Running the Streamlit App
+To launch the interactive Course Assistant UI:
+```bash
+streamlit run capstone_streamlit.py
+```
+This will automatically initialize the `chroma_db` vectorstore and open the application in your default web browser at `http://localhost:8501`.
+
+### 4. Running the Evaluation Suite
+To verify the core logic, memory, and red-teaming defenses:
+```bash
+python day13_capstone.py
+```
+*(This script runs the full testing suite, including 10 domain questions, 2 red-teaming tests, a multi-turn memory test, and the RAGAS baseline evaluation).*
 
 ## Safety & Red-Teaming
 

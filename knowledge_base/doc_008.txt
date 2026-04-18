@@ -1,1 +1,23 @@
-The Capstone Project for Dr. Kanthi Kiran Sirra's Agentic AI course requires building a production-grade assistant using LangGraph, ChromaDB, and Streamlit. The project follows an 8-part process: Part 1 (Knowledge Base — minimum 10 documents, 100-500 words each), Part 2 (State Design — CapstoneState TypedDict with 9 required fields), Part 3 (8 Node Functions — memory, router, retrieval, skip, tool, answer, eval, save), Part 4 (Graph Assembly with conditional edges and MemorySaver), Part 5 (Testing with 10 domain questions and 2 red-team tests), Part 6 (RAGAS Evaluation — faithfulness, answer relevancy, context precision), Part 7 (Streamlit Deployment with @st.cache_resource), Part 8 (Written Summary and Submission). The deadline is April 21, 2026 at 11:59 PM with no extensions. Submission includes the notebook, Streamlit file, agent.py, and a documentation PDF.
+## Capstone Project Requirements: Production-Grade Agentic AI Assistant
+
+This project culminates the learning from the Agentic AI course, demanding the construction of a fully functional, production-ready assistant leveraging LangGraph, ChromaDB, and Streamlit. Successful completion requires adherence to a structured, eight-part development process and strict submission guidelines.
+
+**Project Stages:**
+
+**Part 1: Knowledge Base Construction:** The foundation of the assistant is a robust knowledge base. This necessitates a minimum of 10 documents, each ranging from 100 to 500 words in length. Documents should be focused on a specific, well-defined domain to facilitate effective retrieval. Acceptable formats include text files, PDFs, and markdown. Proper document chunking strategies (e.g., semantic chunking) are encouraged to optimize retrieval performance.
+
+**Part 2: State Design:** A crucial element of agentic AI is managing state. This project requires defining a `CapstoneState` TypedDict in Python. This TypedDict *must* include the following nine fields: `conversation_history`, `query`, `retrieved_documents`, `node_outputs`, `current_node`, `agent_step`, `memory_key`, `error_message`, and `final_answer`.  These fields will track the agent’s progress and context throughout its operation.
+
+**Part 3: Node Function Implementation:** The agent’s logic is implemented through eight distinct node functions. These functions are: `memory` (managing conversational context), `router` (determining the next node based on state), `retrieval` (querying ChromaDB), `skip` (handling irrelevant information), `tool` (interacting with external tools – optional extension), `answer` (generating a response), `eval` (assessing response quality – optional extension), and `save` (persisting state). Each function must accept and return the `CapstoneState` object.
+
+**Part 4: Graph Assembly:** LangGraph is used to assemble these nodes into a directed graph. The graph *must* incorporate conditional edges, enabling dynamic routing based on the `CapstoneState`.  A `MemorySaver` node is required to ensure persistent storage of the conversation history within the `CapstoneState`.
+
+**Part 5: Testing & Validation:** Rigorous testing is paramount. The assistant must be evaluated against a minimum of 10 domain-specific questions designed to assess its core functionality.  Furthermore, two “red-team” tests are required – adversarial prompts designed to expose vulnerabilities or biases in the system.
+
+**Part 6: RAGAS Evaluation:** Quantitative evaluation will be performed using RAGAS (Retrieval-Augmented Generation Assessment). Metrics to be reported include Faithfulness (factual consistency of the answer with the retrieved context), Answer Relevancy (how well the answer addresses the query), and Context Precision (the proportion of relevant information within the retrieved context).
+
+**Part 7: Streamlit Deployment:** The assistant will be deployed as a user-friendly interface using Streamlit.  Caching mechanisms, specifically `@st.cache_resource`, must be implemented to optimize performance and reduce resource consumption.
+
+**Part 8: Documentation & Submission:** A comprehensive documentation PDF detailing the project’s design, implementation, and evaluation is required.  Submission includes the complete Jupyter Notebook, the Streamlit application file (.py), the `agent.py` file containing the node functions, and the documentation PDF.
+
+**Deadline & Policy:** The final submission deadline is April 21, 2026, at 11:59 PM. No extensions will be granted.

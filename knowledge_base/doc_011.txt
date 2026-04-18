@@ -1,1 +1,19 @@
-RAGAS (Retrieval Augmented Generation Assessment) is a framework for evaluating RAG pipelines. Key metrics include: Faithfulness — measures whether the answer contains only information from the retrieved context (score 0.0 to 1.0; higher means less hallucination). Answer Relevancy — measures how relevant the answer is to the question asked. Context Precision — measures the proportion of retrieved chunks that are actually relevant to the question. In the capstone project, the eval_node performs real-time faithfulness checking with a threshold of 0.7. If the score falls below 0.7, the answer is regenerated (up to a maximum retry count). For the submission, students must prepare 5 question-answer pairs with ground truth and report baseline RAGAS scores. If RAGAS library is unavailable, manual LLM-based scoring serves as the fallback evaluation method.
+## Evaluation and RAGAS Metrics: A Deep Dive
+
+Evaluating Retrieval-Augmented Generation (RAG) pipelines is critical for ensuring quality and reliability. RAGAS (Retrieval Augmented Generation Assessment) provides a robust framework for this purpose, moving beyond simple accuracy metrics to assess the core components contributing to a successful RAG system. It focuses on dissecting *how* a RAG pipeline arrives at an answer, not just *if* the answer is correct.
+
+**Core RAGAS Metrics:**
+
+* **Faithfulness:** This metric quantifies the extent to which the generated answer is grounded in the retrieved context. It assesses whether the answer contains information *not* present in the source documents – effectively measuring hallucination.  Faithfulness is scored between 0.0 and 1.0, where 1.0 indicates perfect faithfulness (the answer is entirely supported by the context) and 0.0 indicates complete hallucination. Technically, faithfulness evaluation often employs a separate LLM to determine if each statement in the answer can be attributed to a statement within the retrieved context. 
+
+* **Answer Relevancy:**  This metric evaluates how well the generated answer addresses the user’s question. A highly relevant answer directly responds to the query, providing useful and pertinent information.  Relevancy scoring typically uses an LLM to compare the question and answer, assessing semantic similarity and topical alignment.  A higher score indicates greater relevancy.
+
+* **Context Precision:** This metric focuses on the retrieval stage, measuring the proportion of retrieved context chunks that are actually relevant to the question. High context precision indicates efficient retrieval, minimizing noise and irrelevant information passed to the generation stage.  A low context precision score suggests the retrieval component is returning extraneous data, potentially hindering answer quality and increasing computational cost.  It’s calculated as (Number of Relevant Chunks Retrieved) / (Total Number of Chunks Retrieved).
+
+**Implementation in the Capstone Project:**
+
+The capstone project utilizes an `eval_node` to perform real-time faithfulness checking. This node leverages RAGAS to calculate the faithfulness score for each generated answer. A threshold of 0.7 is implemented; if the faithfulness score falls below this value, the answer is automatically regenerated. This iterative regeneration process is capped by a maximum retry count to prevent infinite loops. This demonstrates a closed-loop RAG system capable of self-correction.
+
+**Submission Requirements & Fallback Evaluation:**
+
+Students are required to submit five question-answer pairs, accompanied by corresponding ground truth answers. Baseline RAGAS scores (Faithfulness, Answer Relevancy, and Context Precision) must be reported for each pair.  If the RAGAS library is unavailable during evaluation, a fallback method utilizing manual LLM-based scoring is permitted. This involves prompting a separate LLM to assess each metric based on the question, answer, and retrieved context, providing a qualitative but comparable evaluation.  Clear prompting strategies and LLM selection must be documented in this case.
