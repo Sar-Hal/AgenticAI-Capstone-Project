@@ -46,7 +46,7 @@ User question → [memory_node] → [router_node] → [retrieval/tool/skip_node]
 ├── graph.py              # StateGraph assembly & compilation
 ├── agent.py              # ask() helper + vectorstore init
 ├── capstone_streamlit.py # Streamlit UI with sidebar
-├── day13_capstone.ipynb  # Complete capstone notebook
+├── day13_capstone.py     # Complete capstone execution script
 ├── test_agent.py         # 12 test questions + memory test
 ├── eval_ragas.py         # RAGAS baseline evaluation (5 Q/A pairs)
 ├── generate_chunks.py    # Knowledge base generator

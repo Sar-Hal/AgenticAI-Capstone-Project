@@ -72,8 +72,8 @@ def init_vectorstore():
     if not all_docs:
         all_docs = [
             Document(
-                page_content="Empty Knowledge Base",
-                metadata={"source": "dummy", "topic": "General", "doc_id": "dummy"},
+                page_content="Empty Knowledge Base. Please generate documents.",
+                metadata={"source": "fallback_doc", "topic": "General", "doc_id": "fallback_doc"},
             )
         ]
 
