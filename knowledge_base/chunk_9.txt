@@ -1,0 +1,1 @@
+Red-teaming in AI involves systematically testing models or agents to identify vulnerabilities, biases, or unexpected behaviors. For the Capstone, the agent must not hallucinate answers to out-of-scope questions and should provide a helpline number.

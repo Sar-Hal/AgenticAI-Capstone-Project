@@ -1,0 +1,1 @@
+RAG (Retrieval-Augmented Generation) is an AI framework that retrieves data from external knowledge bases to ground large language models (LLMs) on the most accurate, up-to-date information. It helps reduce hallucinations.
