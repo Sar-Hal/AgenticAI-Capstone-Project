@@ -7,19 +7,15 @@ At its core, ChromaDB stores data as *embeddings* – numerical representations 
 **Technical Details:**
 
 * **Data Structure:** ChromaDB utilizes a collection-based structure. A *collection* is a logical grouping of embeddings. Within a collection, each embedding is associated with a unique ID, the original text, and arbitrary metadata (e.g., source document, creation date).
-* **Embedding Models:** While ChromaDB itself doesn’t *create* embeddings, it seamlessly integrates with popular embedding models. The course utilizes Sentence Transformers, which map text to dense vector representations. The choice of embedding model significantly impacts retrieval performance; models trained on domain-specific data generally yield better results.
-* **Similarity Search:**  ChromaDB employs similarity metrics, primarily cosine similarity, to determine the relevance of stored embeddings to a query embedding. Cosine similarity measures the angle between two vectors; a smaller angle (closer to 0 degrees) indicates higher similarity.  The database efficiently identifies the *k* nearest neighbors (most similar embeddings) to the query vector.
+* **Embedding Models:** While ChromaDB itself doesn’t generate embeddings, it seamlessly integrates with popular embedding models. The course utilizes Sentence Transformers, which map text to dense vector representations. The choice of embedding model significantly impacts retrieval performance; models trained on domain-specific data generally yield better results.
+* **Similarity Search:** ChromaDB employs similarity metrics, primarily cosine similarity, to determine the relevance of stored embeddings to a query embedding. Cosine similarity measures the angle between two vectors, with smaller angles indicating higher similarity.  Efficient indexing algorithms (e.g., HNSW – Hierarchical Navigable Small World) are used to accelerate similarity search, even with millions of embeddings.
 * **Storage Modes:** ChromaDB offers two primary storage modes:
-    * **In-Memory:**  Data is stored in RAM, providing extremely fast access but is lost upon application termination. Suitable for prototyping and experimentation.
-    * **Persistent:** Data is stored on disk, ensuring data persistence across application restarts.  This is crucial for production deployments.  Persistence is configured by specifying a `persist_directory` during collection creation.  ChromaDB utilizes a SQLite database within the specified directory for storage.
-* **API & Integration:** ChromaDB provides a Python API for easy interaction.  The API allows for adding documents, querying the database, filtering results based on metadata, and managing collections.
-
-**Capstone Project Implementation:**
-
-In the capstone project, ChromaDB serves as the vector store within the RAG pipeline. Documents are chunked, embedded using Sentence Transformers, and stored in a persistent ChromaDB collection. User queries are similarly embedded, and ChromaDB’s similarity search functionality retrieves the most relevant document chunks. These chunks are then provided as context to the LLM, enabling it to generate informed and contextually relevant responses.
+    * **In-Memory:**  Data is stored in RAM, providing fast access but losing data upon application termination. Suitable for prototyping and experimentation.
+    * **Persistent:** Data is stored on disk, ensuring data persistence across application restarts.  This is crucial for production deployments.  A `persist_directory` parameter is used to specify the storage location.
+* **RAG Pipeline Integration:** In the capstone project, ChromaDB serves as the vector store within a RAG pipeline. Documents are chunked, embedded using Sentence Transformers, and stored in a ChromaDB collection. User queries are similarly embedded, and ChromaDB retrieves the most semantically similar document chunks. These chunks are then provided as context to the LLM, enabling it to generate informed and relevant responses.
 
 **Best Practices:**
 
 * **Chunking Strategy:**  The size and method of text chunking significantly impact retrieval quality. Experiment with different chunk sizes and overlap to optimize performance.
-* **Metadata Utilization:** Leverage metadata to filter search results and refine retrieval accuracy.
-* **Persistence Configuration:** Always use persistent storage for production deployments to avoid data loss. Regularly back up the `persist_directory`.
+* **Metadata Utilization:** Leverage metadata to filter and refine search results. For example, filter by source document to prioritize information from trusted sources.
+* **Persistence Configuration:** Always use persistent storage for production deployments and carefully manage the `persist_directory` to ensure data integrity and accessibility.

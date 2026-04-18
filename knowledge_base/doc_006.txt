@@ -18,7 +18,7 @@ For example, the `CapstoneState` `TypedDict` in a typical LangGraph application 
 
 **Key Considerations & Best Practices:**
 
-*   **Strict Typing:** Every field that a node intends to write to *must* be declared within the `TypedDict`. Attempting to write to an undefined field will raise a `KeyError` at runtime, providing immediate feedback on state management issues. This enforces a clear contract between nodes.
+*   **Strict Typing:**  Every field that a node intends to write to *must* be declared within the `TypedDict`. Attempting to write to an undefined field will raise a `KeyError` at runtime, providing immediate feedback on state management issues. This enforces a clear contract between nodes.
 *   **Schema Evolution:**  Modifying the `TypedDict` requires careful consideration. Changes can impact all nodes interacting with the state and may necessitate code updates across the `StateGraph`.
 *   **Reducer Integration:** Utilizing LangGraph’s reducers (like `add_messages`) within the `TypedDict` definition streamlines common state update patterns, reducing boilerplate code and improving maintainability.
-*   **State Granularity:** Design the `TypedDict` to contain only the necessary information for the agent’s operation. Overly complex states can hinder performance and increase debugging complexity.
+*   **State Size:** Be mindful of the size of the state. Large states can impact performance. Only include necessary information in the `TypedDict`.

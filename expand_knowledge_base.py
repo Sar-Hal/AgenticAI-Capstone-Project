@@ -14,7 +14,7 @@ if not os.environ.get('GOOGLE_API_KEY'):
 # Initialize Gemma 3 27B
 llm = ChatGoogleGenerativeAI(model="gemma-3-27b-it", temperature=0.2)
 
-kb_dir = "../knowledge_base"
+kb_dir = "knowledge_base"
 
 # Prompt template
 system_prompt = """You are an expert AI instructor writing course material for the 'Agentic AI Hands-On Course'. 

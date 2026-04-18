@@ -1,11 +1,26 @@
 ## Graph Node Architecture in LangGraph
 
-LangGraph employs a directed graph structure to orchestrate agent behavior, utilizing specialized nodes interconnected by edges. This architecture facilitates complex reasoning and action sequences. The core agent flow consists of eight distinct node types arranged in a predefined, yet dynamically routed, sequence: START → memory_node → router_node → (conditional: retrieval_node OR tool_node OR skip_node) → answer_node → eval_node → (conditional: retry answer_node OR save_node) → END.
+LangGraph employs a directed graph structure to orchestrate agent behavior, utilizing specialized nodes interconnected by edges. This architecture consists of eight core nodes, defining a standardized workflow for agentic tasks. The agent’s execution path progresses sequentially through these nodes, guided by both fixed and conditional edges.
 
-**Node Specialization:** Each node encapsulates a specific function within the agent’s operation. `memory_node` manages conversational history. `router_node` determines the subsequent action based on the current state. `retrieval_node` interacts with external knowledge sources. `tool_node` executes defined tools (e.g., APIs, calculators). `skip_node` allows the agent to proceed without external interaction. `answer_node` generates a response based on accumulated information. `eval_node` assesses the quality of the answer. `save_node` persists relevant information.
+The defined flow is as follows: `START → memory_node → router_node → (conditional: retrieval_node OR tool_node OR skip_node) → answer_node → eval_node → (conditional: retry answer_node OR save_node) → END`. 
 
-**Edge Types: Fixed vs. Conditional:**  The graph’s connectivity is defined by two edge types. *Fixed edges*, established using `add_edge()`, represent deterministic transitions. For example, the START node always transitions to the memory_node. *Conditional edges*, created with `add_conditional_edges()`, introduce dynamic routing. These edges rely on decision functions that evaluate the agent’s state and determine the next node.
+**Fixed Edges:** Represented by `add_edge()`, these connections ensure deterministic transitions between nodes. For example, the `START` node always directs execution to the `memory_node`. This provides a predictable base structure to the agent’s operation.
 
-**Decision Functions & Routing:** The `router_decision` function is a critical component. It receives the agent’s state dictionary and inspects the `state['route']` key. Based on its value (typically 'retrieve', 'tool', or 'skip'), it directs the flow to the corresponding node. Similarly, the `eval_decision` function analyzes `state['faithfulness']` (a metric indicating answer accuracy) and `state['eval_retries']` (the number of evaluation attempts). If faithfulness is low and retry attempts are available, the agent loops back to the `answer_node` for refinement. Otherwise, it proceeds to the `save_node`.
+**Conditional Edges:** Implemented using `add_conditional_edges()`, these edges introduce dynamic routing based on runtime conditions. They require a callable Python function (a “decision function”) that evaluates the current agent state (`state` dictionary) and returns the name of the next node. This allows the agent to adapt its behavior based on intermediate results.
 
-**API Requirements & Testability:** LangGraph’s API mandates that decision functions are defined as standalone Python functions (callables) *outside* of the node’s internal `invoke()` method. This separation is crucial for several reasons. First, it enhances testability, allowing independent verification of routing and evaluation logic. Second, it adheres to LangGraph’s internal architecture, ensuring compatibility and proper execution within the graph framework.  The state dictionary passed to these functions provides a comprehensive view of the agent’s current context, enabling informed decision-making.
+**Key Decision Functions:**
+
+* **`route_decision(state)`:** This function resides within the `router_node` and determines the subsequent action. It inspects the `state['route']` key, which is populated by the router. Possible values dictate the next node: 'retrieve' directs flow to the `retrieval_node`, 'tool' to the `tool_node`, and 'skip' to the `skip_node`.  The router itself determines the value of `state['route']` based on the current query and context.
+* **`eval_decision(state)`:**  Executed within the `eval_node`, this function assesses the quality of the generated answer. It examines `state['faithfulness']` (a metric indicating answer grounding) and `state['eval_retries']` (a counter tracking retry attempts).  Based on these values, it either directs the flow to the `retry answer_node` (if faithfulness is low and retries are available) or to the `save_node` (if the answer is deemed satisfactory).
+
+**Implementation Considerations:**
+
+LangGraph’s API mandates that decision functions are defined as standalone callable objects *outside* of the node’s core function (`_call` method). This separation is crucial for several reasons:
+
+* **Testability:**  Independent functions are easily unit-tested, ensuring the routing and evaluation logic functions correctly.
+* **Maintainability:** Decoupling decision logic from node execution improves code organization and readability.
+* **API Requirement:** LangGraph’s internal mechanisms rely on passing these functions as callable arguments to manage conditional transitions.
+
+
+
+This structured node architecture, combined with the flexibility of conditional edges and well-defined decision functions, provides a robust and adaptable framework for building complex agentic systems.
