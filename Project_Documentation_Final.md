@@ -1,4 +1,4 @@
-# Agentic AI Course Assistant: Final Project Report
+# EduGraph: Agentic AI Course Assistant
 
 ---
 
